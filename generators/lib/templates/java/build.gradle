@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+group 'com.github.SerproLivre'
+
+android {
+    compileSdkVersion <%= targetSdkVersion %>
+
+    /** Reference:
+     *  https://developer.android.com/studio/build/gradle-tips.html#change-default-source-set-configurations
+     */
+    sourceSets {
+        main {
+            java.srcDirs = ['../../src/android', 'src/main/<%= lang %>']
+        }
+    }
+
+    defaultConfig {
+        minSdkVersion <%= minSdkVersion %>
+        targetSdkVersion <%= targetSdkVersion %>
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    <%- dependencies %>
+}
